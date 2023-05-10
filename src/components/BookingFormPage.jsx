@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function BookingFormPage() {
   const [formData, setFormData] = useState({
@@ -32,12 +32,6 @@ function BookingFormPage() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(formData);
-    // if (Object.values(formData).every((item) => item)) {
-    //   console.log(formData);
-    //   setIsSubmitted(true);
-    // } else {
-    //   setSubmitClicked(true);
-    // }
   }
 
   function clearForm() {
@@ -102,6 +96,7 @@ function BookingFormPage() {
             name="comment"
             value={formData.comment}
             onChange={handleChange}
+            rows="3"
           />
         </label>
         <span className="buttons-section">
