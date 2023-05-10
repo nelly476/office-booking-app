@@ -44,7 +44,26 @@ label {
 }
 
 .buttons-section {
+  width: 100%;
   display: flex;
   justify-content: center;
   column-gap: 1em;
+  margin-top: 2em;
+}
+
+button {
+  width: 6em;
+  background-color: rgba(8, 17, 46, 0.822);
+  display: flex;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgba(8, 17, 46, 0.69);
+  cursor: pointer;
 }

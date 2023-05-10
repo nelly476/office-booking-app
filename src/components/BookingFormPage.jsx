@@ -1,60 +1,55 @@
 import { useState, useEffect } from "react";
 
 function BookingFormPage() {
-  const [tower, setTower] = useState("A");
-  const [floor, setFloor] = useState("3");
-  const [room, setRoom] = useState("1");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [comment, setComment] = useState("");
+  const [formData, setFormData] = useState({
+    tower: "A",
+    floor: 3,
+    room: 1,
+    date: new Date(),
+    time: "09.00",
+    comment: "",
+  });
+
   const FLOOR_NUM = [
     3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
     24, 25, 26, 27,
   ];
   const ROOM_NUM = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const handleTowerChange = (e) => {
-    setTower(e.target.value);
-  };
+  const TIME_SELECTION = ["09:00", "10:00", "14:00", "15:00", "17:00", "18:00"];
 
-  const handleFloorChange = (e) => {
-    setFloor(e.target.value);
-  };
+  function handleChange(e) {
+    setFormData((prev) => {
+      const { name, value } = e.target;
 
-  const handleRoomChange = (e) => {
-    setRoom(e.target.value);
-  };
-
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-  };
-
-  const handleTimeChange = (e) => {
-    setTime(e.target.value);
-  };
-
-  const handleCommentChange = (e) => {
-    setComment(e.target.value);
-  };
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setTower("A");
-    setFloor("3");
-    setRoom("1");
-    setDate("");
-    setTime("");
-    setComment("");
+    console.log(formData);
+    // if (Object.values(formData).every((item) => item)) {
+    //   console.log(formData);
+    //   setIsSubmitted(true);
+    // } else {
+    //   setSubmitClicked(true);
+    // }
   }
 
-  const handleClear = () => {
-    setTower("A");
-    setFloor("3");
-    setRoom("1");
-    setDate("");
-    setTime("");
-    setComment("");
-  };
+  function clearForm() {
+    setFormData({
+      tower: "A",
+      floor: 3,
+      room: 1,
+      date: new Date(),
+      time: "09.00",
+      comment: "",
+    });
+  }
 
   return (
     <div className="form-section">
@@ -62,14 +57,14 @@ function BookingFormPage() {
         <h1>Бронирование переговорной</h1>
         <label>
           Башня:
-          <select value={tower} onChange={handleTowerChange}>
+          <select name="tower" value={formData.tower} onChange={handleChange}>
             <option value="A">Башня А</option>
             <option value="B">Башня Б</option>
           </select>
         </label>
         <label>
           Этаж:
-          <select value={floor} onChange={handleFloorChange}>
+          <select name="floor" value={formData.floor} onChange={handleChange}>
             {FLOOR_NUM.map((i) => (
               <option key={i} value={i}>
                 {i}
@@ -79,7 +74,7 @@ function BookingFormPage() {
         </label>
         <label>
           Переговорная комната:
-          <select value={room} onChange={handleRoomChange}>
+          <select name="room" value={formData.room} onChange={handleChange}>
             {ROOM_NUM.map((i) => (
               <option key={i} value={i}>
                 {i}
@@ -88,20 +83,30 @@ function BookingFormPage() {
           </select>
         </label>
         <label>
-          Дата и время:
-          <input
-            type="datetime-local"
-            value={date}
-            onChange={handleDateChange}
-          />
+          Дата:
+          <input type="date" onChange={handleChange} />
+        </label>
+        <label>
+          Время:
+          <select name="floor" value={formData.time} onChange={handleChange}>
+            {TIME_SELECTION.map((i) => (
+              <option key={i} value={i}>
+                {i}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           Комментарии:
-          <textarea value={comment} onChange={handleCommentChange} />
+          <textarea
+            name="comment"
+            value={formData.comment}
+            onChange={handleChange}
+          />
         </label>
         <span className="buttons-section">
           <button type="submit">Отправить</button>
-          <button type="button" onClick={handleClear}>
+          <button type="button" onClick={clearForm}>
             Очистить
           </button>
         </span>

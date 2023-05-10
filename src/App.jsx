@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import "./App.css";
 import BookingFormPage from "./components/BookingFormPage";
 import backgroundImg from "../src/assets/bg-img.jpg";
